@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # © 2017 Emanuel Cino - <ecino@compassion.ch>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 import mock
@@ -34,17 +33,17 @@ class TestMailSendgrid(SavepointCase):
 
     @classmethod
     def setUpClass(cls):
-        super(TestMailSendgrid, cls).setUpClass()
+        super().setUpClass()
         cls.sendgrid_template = cls.env['sendgrid.template'].create({
             'name': 'Test Template',
             'remote_id': 'a74795d7-f926-4bad-8e7a-ae95fabd70fc',
-            'html_content': u'<h1>Test Sendgrid</h1><%body%>{footer}'
+            'html_content': '<h1>Test Sendgrid</h1><%body%>{footer}'
         })
         cls.mail_template = cls.env['mail.template'].create({
             'name': 'Test Template',
             'model_id': cls.env.ref('base.model_res_partner').id,
             'subject': 'Test e-mail',
-            'body_html': u'Dear ${object.name}, hello!',
+            'body_html': 'Dear ${object.name}, hello!',
             'sendgrid_template_ids': [
                 (0, 0, {'lang': 'en_US', 'sendgrid_template_id':
                         cls.sendgrid_template.id})]
@@ -56,18 +55,18 @@ class TestMailSendgrid(SavepointCase):
             'mailing_model': 'res.partner',
             'mailing_domain': "[('id', '=', %d)]" % cls.recipient.id,
             'email_template_id': cls.mail_template.id,
-            'body_html': u'Dear ${object.name}, hello!',
+            'body_html': 'Dear ${object.name}, hello!',
             'reply_to_mode': 'email',
             'enable_unsubscribe': True,
             'unsubscribe_tag': '[unsub]'
         }).with_context(lang='en_US', test_mode=True)
-        cls.timestamp = u'1471021089'
+        cls.timestamp = '1471021089'
         cls.event = {
             'timestamp': cls.timestamp,
-            'sg_event_id': u"f_JoKtrLQaOXUc4thXgROg",
+            'sg_event_id': "f_JoKtrLQaOXUc4thXgROg",
             'email': cls.recipient.email,
             'odoo_db': cls.env.cr.dbname,
-            'odoo_id': u'<xxx.xxx.xxx-openerp-xxx-res.partner@test_db>'
+            'odoo_id': '<xxx.xxx.xxx-openerp-xxx-res.partner@test_db>'
         }
         cls.metadata = {
             'ip': '127.0.0.1',
@@ -82,7 +81,7 @@ class TestMailSendgrid(SavepointCase):
         Test the preview field is getting the Sendgrid template
         """
         preview = self.mass_mailing.body_sendgrid
-        self.assertIn(u'<h1>Test Sendgrid</h1>', preview)
+        self.assertIn('<h1>Test Sendgrid</h1>', preview)
         self.assertIn('hello!', preview)
 
     def test_change_language(self):
@@ -169,4 +168,4 @@ class TestMailSendgrid(SavepointCase):
     def tearDownClass(cls):
         cls.env['ir.config_parameter'].set_param(
             'mail_sendgrid.send_method', 'traditional')
-        super(TestMailSendgrid, cls).tearDownClass()
+        super().tearDownClass()

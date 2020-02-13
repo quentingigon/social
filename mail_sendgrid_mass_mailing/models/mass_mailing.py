@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2016-2017 Compassion CH (http://www.compassion.ch)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
@@ -54,11 +53,11 @@ class MassMailing(models.Model):
             if template.reply_to:
                 vals['reply_to'] = template.reply_to
             vals['name'] = template.subject
-        return super(MassMailing, self).write(vals)
+        return super().write(vals)
 
     @api.onchange('lang')
     def onchange_lang(self):
-        if self.lang and self.mailing_model == 'res.partner':
+        if self.lang and self.mailing_model_name == 'res.partner':
             domain = safe_eval(self.mailing_domain)
             lang_tuple = False
             for tuple in domain:

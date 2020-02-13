@@ -1,9 +1,8 @@
-# -*- coding: utf-8 -*-
 # Copyright 2016-2017 Compassion CH (http://www.compassion.ch)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 {
     'name': 'Mass Mailing with SendGrid',
-    'version': '10.0.1.0.1',
+    'version': '11.0.1.0.0',
     'category': 'Social Network',
     'author': 'Compassion CH, Odoo Community Association (OCA)',
     'license': 'AGPL-3',

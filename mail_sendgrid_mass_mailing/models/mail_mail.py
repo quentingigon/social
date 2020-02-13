@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2016-2017 Compassion CH (http://www.compassion.ch)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 from odoo import models
@@ -17,7 +16,7 @@ class MailMail(models.Model):
     _inherit = "mail.mail"
 
     def _prepare_sendgrid_tracking(self):
-        track_vals = super(MailMail, self)._prepare_sendgrid_tracking()
+        track_vals = super()._prepare_sendgrid_tracking()
         track_vals.update({
             'mail_id_int': self.id,
             'mass_mailing_id': self.mailing_id.id,
@@ -28,7 +27,7 @@ class MailMail(models.Model):
 
     def _track_sendgrid_emails(self):
         """ Push tracking_email in mass_mail_statistic """
-        tracking_emails = super(MailMail, self)._track_sendgrid_emails()
+        tracking_emails = super()._track_sendgrid_emails()
         for tracking in tracking_emails.filtered('mail_stats_id'):
             tracking.mail_stats_id.mail_tracking_id = tracking.id
         return tracking_emails
@@ -38,7 +37,7 @@ class MailMail(models.Model):
         Add unsubscribe options in mass mailings
         :return: Sendgrid Email
         """
-        s_mail = super(MailMail, self)._prepare_sendgrid_data()
+        s_mail = super()._prepare_sendgrid_data()
         tracking_settings = TrackingSettings()
         if self.mailing_id.enable_unsubscribe:
             sub_settings = SubscriptionTracking(

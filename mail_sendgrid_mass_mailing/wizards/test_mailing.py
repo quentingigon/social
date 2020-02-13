@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2016-2017 Compassion CH (http://www.compassion.ch)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
@@ -43,6 +42,6 @@ class TestMassMailing(models.TransientModel):
                 emails += emails.create(email_vals)
             emails.send_sendgrid()
         else:
-            super(TestMassMailing, self).send_mail_test()
+            super().send_mail_test()
 
         return True
