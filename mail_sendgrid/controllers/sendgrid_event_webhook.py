@@ -4,7 +4,7 @@ import logging
 
 from odoo import http
 from odoo.addons.mail_tracking.controllers.main import \
-    MailTrackingController, _env_get
+    MailTrackingController
 
 _logger = logging.getLogger(__name__)
 
@@ -15,7 +15,7 @@ class SendgridTrackingController(MailTrackingController):
                 type='json', auth='none', csrf=False)
     def mail_tracking_sendgrid(self, db, **kw):
         try:
-            _env_get(db, self._tracking_event, None, None, **kw)
+            self.mail_tracking_event(db, **kw)
             return {'status': 200}
         except Exception as e:
             _logger.error(e.args[0] or e.message, exc_info=True)
